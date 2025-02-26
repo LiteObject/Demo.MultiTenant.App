@@ -19,20 +19,7 @@ namespace Demo.MultiTenant.App.Entities
         {
             Username = username;
             Email = email;
-        }
-
-        private static void ValidateInputs(string username, string email)
-        {
-            if (string.IsNullOrWhiteSpace(username))
-            {
-                throw new ArgumentException("Username cannot be empty", nameof(username));
-            }
-
-            if (string.IsNullOrWhiteSpace(email))
-            {
-                throw new ArgumentException("Email cannot be empty", nameof(email));
-            }
-        }
+        }       
 
         public static User Create(string tenantId, string username, string email, string? firstName = null, string? lastName = null)
         {
@@ -54,6 +41,19 @@ namespace Demo.MultiTenant.App.Entities
             FirstName = firstName;
             LastName = lastName;
             UpdateModifiedOn();
+        }
+
+        private static void ValidateInputs(string username, string email)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                throw new ArgumentException("Username cannot be empty", nameof(username));
+            }
+
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                throw new ArgumentException("Email cannot be empty", nameof(email));
+            }
         }
     }
 }

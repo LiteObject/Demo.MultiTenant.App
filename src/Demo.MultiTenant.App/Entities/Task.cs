@@ -4,17 +4,6 @@ namespace Demo.MultiTenant.App.Entities
 {
     public class Task : BaseEntity
     {
-        private Task(Guid id, string tenantId, string name, Guid? userId) : base(id, tenantId)
-        {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentException("Task name cannot be empty.", nameof(name));
-            }
-
-            Name = name;
-            UserId = userId;
-        }
-
         [Required]
         [MaxLength(100)]
         public string Name { get; private set; }
@@ -25,13 +14,23 @@ namespace Demo.MultiTenant.App.Entities
         public Guid? UserId { get; private set; }
 
         // Private parameterless constructor for EF Core
-        private Task() : this(Guid.NewGuid(), string.Empty, string.Empty, null)
+        private Task() : this(string.Empty, string.Empty, null)
         {
+        }
+
+        private Task(string tenantId, string name, Guid? userId)
+            : base(Guid.NewGuid(), tenantId)
+        {           
+
+            Name = name;
+            UserId = userId;
         }
 
         public static Task Create(string tenantId, string name, string? description, Guid? userId)
         {
-            var task = new Task(Guid.NewGuid(), tenantId, name, userId)
+            ValidateInputs(tenantId, name);
+
+            var task = new Task(tenantId, name, userId)
             {
                 Description = description
             };
@@ -61,6 +60,19 @@ namespace Demo.MultiTenant.App.Entities
         {
             UserId = newUserId;
             UpdateModifiedOn();
+        }
+
+        private static void ValidateInputs(string tenantId, string name)
+        {
+            if (string.IsNullOrWhiteSpace(tenantId))
+            {
+                throw new ArgumentException("Tenant ID cannot be empty.", nameof(tenantId));
+            }
+
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("Task name cannot be empty.", nameof(name));
+            }
         }
     }
 }

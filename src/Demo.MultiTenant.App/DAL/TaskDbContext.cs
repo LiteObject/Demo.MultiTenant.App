@@ -49,15 +49,15 @@ namespace Demo.MultiTenant.App.DAL
                 // Seed Users if none exist
                 if (!userExists)
                 {
-                    var user = User.Create("tenant-1", "john_doe", "john.doe@example.com", "John", "Doe");
+                    var user = User.Create("tenant-1", "johndoe", "john.doe@example.com", "John", "Doe");
                     context.Set<Entities.User>().Add(user);
                     await context.SaveChangesAsync(cancellationToken);
 
                     // Seed Tasks for the created user
                     if (!taskExists)
                     {
-                        var task1 = Entities.Task.Create("tenant-1", "Complete project", "Finish the multi-tenant app project", user.Id);
-                        var task2 = Entities.Task.Create("tenant-1", "Write documentation", "Document the API and codebase", user.Id);
+                        var task1 = Entities.Task.Create("tenant-1", "John: Complete project", "Finish the multi-tenant app project", user.Id);
+                        var task2 = Entities.Task.Create("tenant-1", "John: Write documentation", "Document the API and codebase", user.Id);
                         context.Set<Entities.Task>().AddRange(task1, task2);
                         await context.SaveChangesAsync(cancellationToken);
                     }
@@ -71,15 +71,15 @@ namespace Demo.MultiTenant.App.DAL
                 // Seed Users if none exist
                 if (!userExists)
                 {
-                    var user = User.Create("tenant-1", "john_doe", "john.doe@example.com", "John", "Doe");
+                    var user = User.Create("tenant-1", "johndoe", "john.doe@example.com", "John", "Doe");
                     context.Set<Entities.User>().Add(user);
                     context.SaveChanges();
 
                     // Seed Tasks for the created user
                     if (!taskExists)
                     {
-                        var task1 = Entities.Task.Create("tenant-1", "Complete project", "Finish the multi-tenant app project", user.Id);
-                        var task2 = Entities.Task.Create("tenant-1", "Write documentation", "Document the API and codebase", user.Id);
+                        var task1 = Entities.Task.Create("tenant-1", "John: Complete project", "Finish the multi-tenant app project", user.Id);
+                        var task2 = Entities.Task.Create("tenant-1", "John: Write documentation", "Document the API and codebase", user.Id);
                         context.Set<Entities.Task>().AddRange(task1, task2);
                         context.SaveChanges();
                     }
