@@ -1,0 +1,26 @@
+version: '3.9'
+name: DemoMultiTenantApp
+services:  
+  db:
+    container_name: postgres
+    image: postgres:latest
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U yourusername -d TaskDb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    environment:
+      - POSTGRES_USER=yourusername
+      - POSTGRES_PASSWORD=yourpassword
+      - POSTGRES_DB=ProductManagementDb
+    ports:
+      - "5432:5432"
+    # volumes:
+    #   - db-data:/var/lib/postgresql/data
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8082:8080" # Updated to avoid port conflicts
+volumes:
+  db-data:
