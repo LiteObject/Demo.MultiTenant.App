@@ -7,12 +7,12 @@ namespace Demo.MultiTenant.App;
 
 public class Program
 {
-    public static async Task Main(string[] args)
+    public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
         // Add explicit configuration (optional if you need specific options)
-        builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);       
+        builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
         // Add services to the container.
         builder.Services.AddRazorComponents()

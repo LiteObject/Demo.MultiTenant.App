@@ -6,10 +6,6 @@
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
 <h1>Tasks</h1>
 
 @if (tasks == null)
@@ -33,10 +29,10 @@ else
 }
 
 @code {
-    private List<Entities.Task> tasks;
+    private List<Entities.Task> tasks = new();
 
     protected override async System.Threading.Tasks.Task OnInitializedAsync()
     {
-        tasks = await Db.Tasks.ToListAsync() ?? new List<Entities.Task>();
+        tasks = await Db.Tasks.ToListAsync() ?? new ();
     }
 }
