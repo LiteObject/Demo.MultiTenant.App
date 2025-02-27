@@ -8,7 +8,7 @@ namespace Demo.MultiTenant.App.Entities
         public string? LastName { get; private set; }
         public string Email { get; private set; }
 
-        public ICollection<Task> Tasks { get; private set; } = new List<Task>();
+        public ICollection<Task> Tasks { get; private set; } = [];
 
         // Private constructor for EF Core
         private User() : this(Guid.NewGuid(), string.Empty, string.Empty, string.Empty)

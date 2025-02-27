@@ -1,17 +1,13 @@
-﻿using System;
-using System.Threading.Tasks;
-using Demo.MultiTenant.App.DAL;
-using Demo.MultiTenant.App.Entities;
+﻿using Demo.MultiTenant.App.DAL;
 using Demo.MultiTenant.App.Services;
 using Microsoft.EntityFrameworkCore;
-using Xunit;
 
-namespace Demo.MultiTenant.Tests
+namespace Demo.MultiTenant.Test
 {
     public class TaskDbContextTests
     {
         [Fact]
-        public async System.Threading.Tasks.Task GlobalQueryFilter_ReturnsOnlyTasksForCurrentTenant()
+        public async Task GlobalQueryFilter_ReturnsOnlyTasksForCurrentTenant()
         {
             // Arrange: configure in-memory database
             DbContextOptions<TaskDbContext> options = new DbContextOptionsBuilder<TaskDbContext>()
@@ -43,14 +39,9 @@ namespace Demo.MultiTenant.Tests
         }
     }
 
-    public class FakeTenantService : ITenantService
+    public class FakeTenantService(string tenantId) : ITenantService
     {
-        private readonly string _tenantId;
-
-        public FakeTenantService(string tenantId)
-        {
-            _tenantId = tenantId;
-        }
+        private readonly string _tenantId = tenantId;
 
         public string GetCurrentTenantId() => _tenantId;
     }

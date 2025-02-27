@@ -1,13 +1,8 @@
 ﻿namespace Demo.MultiTenant.App.Services
 {
-    public class TenantService : ITenantService
+    public class TenantService(IHttpContextAccessor httpContextAccessor) : ITenantService
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public TenantService(IHttpContextAccessor httpContextAccessor)
-        {
-            _httpContextAccessor = httpContextAccessor;
-        }
+        private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
 
         public string GetCurrentTenantId()
         {
